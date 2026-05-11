@@ -43,6 +43,7 @@ VantComponent({
             return this.data.options.length;
         },
         onTouchStart(event) {
+            this.markIndex = this.data.currentIndex;
             this.setData({
                 startY: event.touches[0].clientY,
                 startOffset: this.data.offset,
@@ -54,9 +55,10 @@ VantComponent({
             const deltaY = event.touches[0].clientY - data.startY;
             const newOffset = range(data.startOffset + deltaY, -(this.getCount() * data.itemHeight), data.itemHeight);
             const newIndex = Math.round(-newOffset / data.itemHeight);
-            if (newIndex !== data.currentIndex) {
+            if (newIndex !== this.markIndex) {
                 wx.vibrateShort({ type: 'light' });
             }
+            this.markIndex = newIndex;
             this.setData({
                 offset: newOffset,
             });
