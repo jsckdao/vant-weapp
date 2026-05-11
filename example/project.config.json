@@ -39,11 +39,18 @@
     "minifyWXSS": true,
     "showES6CompileOption": false,
     "ignoreUploadUnusedFiles": true,
-    "condition": false
+    "condition": false,
+    "compileWorklet": false,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.27.3",
-  "appid": "wx1c01b35002d3ba14",
+  "appid": "wx1ff4c064f6f5a7a7",
   "projectname": "vant-weapp",
   "condition": {
     "miniprogram": {
@@ -347,5 +354,6 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "simulatorPluginLibVersion": {}
 }

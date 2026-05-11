@@ -51,6 +51,7 @@ VantComponent({
     },
 
     onTouchStart(event: WechatMiniprogram.TouchEvent) {
+      this.markIndex = this.data.currentIndex;
       this.setData({
         startY: event.touches[0].clientY,
         startOffset: this.data.offset,
@@ -61,12 +62,18 @@ VantComponent({
     onTouchMove(event: WechatMiniprogram.TouchEvent) {
       const { data } = this;
       const deltaY = event.touches[0].clientY - data.startY;
+      const newOffset = range(
+        data.startOffset + deltaY,
+        -(this.getCount() * data.itemHeight),
+        data.itemHeight,
+      );
+      const newIndex = Math.round(-newOffset / data.itemHeight);
+      if (newIndex !== this.markIndex) {
+        wx.vibrateShort({ type: 'light' });
+      }
+      this.markIndex = newIndex;
       this.setData({
-        offset: range(
-          data.startOffset + deltaY,
-          -(this.getCount() * data.itemHeight),
-          data.itemHeight
-        ),
+        offset: newOffset,
       });
     },
 
@@ -78,7 +85,7 @@ VantComponent({
         const index = range(
           Math.round(-data.offset / data.itemHeight),
           0,
-          this.getCount() - 1
+          this.getCount() - 1,
         );
         this.setIndex(index, true);
       }
